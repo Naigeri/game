@@ -1,3 +1,4 @@
+// Player.cpp
 #include "Player.h"
 
 Player::Player(Vector2 pos) : position(pos), health(100.0f), mana(100.0f) {}
