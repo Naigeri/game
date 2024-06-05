@@ -128,6 +128,30 @@ MyGame/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/build
 .PHONY : MyGame/fast
 
+src/Game.obj: src/Game.cpp.obj
+.PHONY : src/Game.obj
+
+# target to build an object file
+src/Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/Game.cpp.obj
+.PHONY : src/Game.cpp.obj
+
+src/Game.i: src/Game.cpp.i
+.PHONY : src/Game.i
+
+# target to preprocess a source file
+src/Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/Game.cpp.i
+.PHONY : src/Game.cpp.i
+
+src/Game.s: src/Game.cpp.s
+.PHONY : src/Game.s
+
+# target to generate assembly for a file
+src/Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/Game.cpp.s
+.PHONY : src/Game.cpp.s
+
 src/Map.obj: src/Map.cpp.obj
 .PHONY : src/Map.obj
 
@@ -175,6 +199,30 @@ src/Player.s: src/Player.cpp.s
 src/Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/Player.cpp.s
 .PHONY : src/Player.cpp.s
+
+src/UI.obj: src/UI.cpp.obj
+.PHONY : src/UI.obj
+
+# target to build an object file
+src/UI.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/UI.cpp.obj
+.PHONY : src/UI.cpp.obj
+
+src/UI.i: src/UI.cpp.i
+.PHONY : src/UI.i
+
+# target to preprocess a source file
+src/UI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/UI.cpp.i
+.PHONY : src/UI.cpp.i
+
+src/UI.s: src/UI.cpp.s
+.PHONY : src/UI.s
+
+# target to generate assembly for a file
+src/UI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MyGame.dir\build.make CMakeFiles/MyGame.dir/src/UI.cpp.s
+.PHONY : src/UI.cpp.s
 
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
@@ -233,12 +281,18 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... MyGame
+	@echo ... src/Game.obj
+	@echo ... src/Game.i
+	@echo ... src/Game.s
 	@echo ... src/Map.obj
 	@echo ... src/Map.i
 	@echo ... src/Map.s
 	@echo ... src/Player.obj
 	@echo ... src/Player.i
 	@echo ... src/Player.s
+	@echo ... src/UI.obj
+	@echo ... src/UI.i
+	@echo ... src/UI.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

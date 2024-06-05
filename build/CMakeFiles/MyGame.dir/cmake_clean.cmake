@@ -1,8 +1,12 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/MyGame.dir/src/Game.cpp.obj"
+  "CMakeFiles/MyGame.dir/src/Game.cpp.obj.d"
   "CMakeFiles/MyGame.dir/src/Map.cpp.obj"
   "CMakeFiles/MyGame.dir/src/Map.cpp.obj.d"
   "CMakeFiles/MyGame.dir/src/Player.cpp.obj"
   "CMakeFiles/MyGame.dir/src/Player.cpp.obj.d"
+  "CMakeFiles/MyGame.dir/src/UI.cpp.obj"
+  "CMakeFiles/MyGame.dir/src/UI.cpp.obj.d"
   "CMakeFiles/MyGame.dir/src/main.cpp.obj"
   "CMakeFiles/MyGame.dir/src/main.cpp.obj.d"
   "CMakeFiles/MyGame.dir/src/skills/Skill.cpp.obj"
