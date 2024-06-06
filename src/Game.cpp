@@ -31,6 +31,7 @@ void Game::Run() {
 void Game::Update() {
     player.Update(camera);  // 传递camera参数
     UpdateCamera();
+    map.Update(); // 更新地图
     // 切换菜单面板显示
     if (IsKeyPressed(KEY_ESCAPE)) {
         ToggleMenu();
@@ -78,15 +79,19 @@ void Game::DrawMenu() {
 }
 
 void Game::DrawGameInfo() {
-    DrawText(TextFormat("Position: [%.1f, %.1f]", player.position.x, player.position.y), 10, 10, 20, DARKGRAY);
-    DrawText(TextFormat("Health: %.1f", player.health), 10, 30, 20, DARKGRAY);
-    DrawText(TextFormat("Mana: %.1f", player.mana), 10, 50, 20, DARKGRAY);
+    DrawText(TextFormat("Player Position: (%.2f, %.2f)", player.position.x, player.position.y), 10, 10, 20, DARKGRAY);
+    DrawText(TextFormat("Player Health: %d", player.health), 10, 30, 20, DARKGRAY);
+    DrawText(TextFormat("Player Mana: %d", player.mana), 10, 50, 20, DARKGRAY);
+    // 获取鼠标位置对应的区块坐标
+    Vector2 mousePosition = GetMousePosition();
+    int blockX = static_cast<int>(mousePosition.x / 10);
+    int blockY = static_cast<int>(mousePosition.y / 10);
 
-    int blockX = static_cast<int>(player.position.x / 8);
-    int blockY = static_cast<int>(player.position.y / 6);
+    // 确保区块坐标在地图范围内
     if (blockX >= 0 && blockX < MAP_SIZE && blockY >= 0 && blockY < MAP_SIZE) {
+        const Block& block = map.GetBlock(blockX, blockY);
         for (int i = 0; i < NUM_ELEMENTS; i++) {
-            DrawText(TextFormat("Element %d: %.2f", i, map.blocks[blockX][blockY][i]), 10, 70 + i * 20, 20, DARKGRAY);
+            DrawText(TextFormat("Element %d: %.2f", i, block.elements.concentration[i]), 10, 70 + i * 20, 20, DARKGRAY);
         }
     }
 }
@@ -107,7 +112,7 @@ void Game::UpdateCamera() {
         // 检查鼠标是否在窗口边缘并移动摄像机
         Vector2 mousePosition = GetMousePosition();
         float moveSpeed = 5.0f;
-        int boundarySize = 30; // 将边界判断像素值改为30
+        int boundarySize = 50; // 将边界判断像素值改为30
 
         if (mousePosition.x <= boundarySize) {
             camera.target.x -= moveSpeed;
