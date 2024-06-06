@@ -10,10 +10,11 @@ Game::Game() : player({50, 50}) { // 修改构造函数，提供参数
 
     gameState = { false, false };
     camera = { 0 };
-    camera.target = player.position;
-    camera.offset = { 400, 300 }; // 中心点
-    camera.rotation = 0.0f;
     camera.zoom = 1.0f;
+    camera.target = { 0.0f, 0.0f };
+    camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+    camera.rotation = 0.0f;
+    camera.zoom = cameraZoom;
 }
 
 Game::~Game() {
@@ -29,7 +30,7 @@ void Game::Run() {
 
 void Game::Update() {
     player.Update(camera);  // 传递camera参数
-
+    UpdateCamera();
     // 切换菜单面板显示
     if (IsKeyPressed(KEY_ESCAPE)) {
         ToggleMenu();
@@ -88,4 +89,38 @@ void Game::DrawGameInfo() {
             DrawText(TextFormat("Element %d: %.2f", i, map.blocks[blockX][blockY][i]), 10, 70 + i * 20, 20, DARKGRAY);
         }
     }
+}
+
+void Game::UpdateCamera() {
+    // 获取鼠标滚轮的移动量
+    float mouseWheelMove = GetMouseWheelMove();
+    if (mouseWheelMove != 0) {
+        cameraZoom += mouseWheelMove * 0.1f; // 调整缩放速度
+        if (cameraZoom < 0.1f) cameraZoom = 0.1f; // 最小缩放限制
+        if (cameraZoom > 3.0f) cameraZoom = 3.0f; // 最大缩放限制
+    }
+
+    // 其他摄像机更新逻辑
+    if (gameState.cameraFollow) {
+        camera.target = player.position; // 假设Player类有position成员
+    } else {
+        // 检查鼠标是否在窗口边缘并移动摄像机
+        Vector2 mousePosition = GetMousePosition();
+        float moveSpeed = 5.0f;
+        int boundarySize = 30; // 将边界判断像素值改为30
+
+        if (mousePosition.x <= boundarySize) {
+            camera.target.x -= moveSpeed;
+        }
+        if (mousePosition.x >= GetScreenWidth() - boundarySize) {
+            camera.target.x += moveSpeed;
+        }
+        if (mousePosition.y <= boundarySize) {
+            camera.target.y -= moveSpeed;
+        }
+        if (mousePosition.y >= GetScreenHeight() - boundarySize) {
+            camera.target.y += moveSpeed;
+        }
+    }
+    camera.zoom = cameraZoom;
 }

@@ -22,13 +22,13 @@ private:
     void ToggleMenu();
     void DrawMenu();
     void DrawGameInfo();
+    void UpdateCamera(); // 确保这里只有一个声明
 
     Player player;
     Map map;
     GameState gameState;
     Camera2D camera;
-
-    void UpdateCamera();
+    float cameraZoom;
 };
 
 #endif // GAME_H
